@@ -4,14 +4,14 @@ Nice way to handle error in Go
 
 ## Objective
 Provides a fail fast and catch anticipated error, as design pattern for enterprise service usage on Go.
-Using [`panic`](https://go.dev/ref/spec#Handling_panics), [`defer`](https://go.dev/ref/spec#Defer_statements), and [`recover`](). A different control flow is provided.
+Using [`panic`](https://go.dev/ref/spec#Handling_panics), [`defer`](https://go.dev/ref/spec#Defer_statements), and `recover`. A different control flow is provided.
 
 
 ## Background
 In response to the Go team's [decision](https://go.dev/blog/error-syntax) on the call for error handling by the community. This package is created to work as an experiment and proof of concept. I would welcome any input and adoption from the community if this project could develop into a wider adoption.
 
 
-## TDLR;
+## TL;DR
 The idiomatic way of Go error handling is like:
 ```
 func printSum(a, b string) error {
@@ -85,7 +85,7 @@ func ExampleTackle() {
 ```
 
 
-## Verdict
+## Disagreementgit
 ### Panic
 Many developers panic to use `panic`. And feel that it's a counter-pattern for Go. I welcome the dicussion with an open-mind. I like the simplicity and readability on Go as well. Please don't get me wrong. I left Java because of this. However, I don't mind using `panic` and `recover`. Go has them from the beginning. That means it's there for us to use by design. I don't think `panic` should only be used for run-time panic. But developer's preferences change over time.
 
