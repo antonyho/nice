@@ -150,7 +150,7 @@ func TestHandler(t *testing.T) {
 		defer nice.Tackle(mockErr2nd).With(mockHandler2nd.Handle)
 
 		panic(mockErr1st)
-		panic(mockErr2nd) //nolint: unreachable
+		panic(mockErr2nd) //nolint
 
 		// Output: It panicked. Error: mock error
 	})
