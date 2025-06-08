@@ -85,7 +85,7 @@ func ExampleTackle() {
 ```
 
 
-## Disagreementgit
+## Disagreement
 ### Panic
 Many developers panic to use `panic`. And feel that it's a counter-pattern for Go. I welcome the dicussion with an open-mind. I like the simplicity and readability on Go as well. Please don't get me wrong. I left Java because of this. However, I don't mind using `panic` and `recover`. Go has them from the beginning. That means it's there for us to use by design. I don't think `panic` should only be used for run-time panic. But developer's preferences change over time.
 
