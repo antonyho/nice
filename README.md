@@ -1,4 +1,6 @@
 # nice
+[![Go](https://github.com/antonyho/nice/actions/workflows/go.yml/badge.svg)](https://github.com/antonyho/nice/actions/workflows/go.yml) [![Go Report Card](https://goreportcard.com/badge/github.com/antonyho/nice)](https://goreportcard.com/report/github.com/antonyho/nice) [![PkgGoDev](https://pkg.go.dev/badge/github.com/antonyho/nice)](https://pkg.go.dev/github.com/antonyho/nice)
+
 Nice way to handle error in Go
 
 
