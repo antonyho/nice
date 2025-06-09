@@ -1,3 +1,6 @@
+/*
+Package nice provides the throw and catch error handling pattern using panic and recover.
+*/
 package nice
 
 import (
