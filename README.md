@@ -31,52 +31,78 @@ The verbosity annoys many developers especially those who have extensive Java, C
 
 
 ## Usage
+Add package to your project's Go module.
+```
+$ go get github.com/antonyho/nice
+```
+
+### Implementation
+`defer` a handle to specific error or artefact. Then `panic` with an error or artefact.
+```
+import (
+    "errors"
+    "github.com/antonyho/nice"
+)
+
+var err2Handle = errors.New("error to handle")
+
+func main() {
+    defer nice.Tackle(err2Handle).With(
+        func(err any) {
+            log.Printf("An error has happened: %v", err)
+        }
+    )
+
+    panic(err2Handle)
+}
+```
+
 Use [`panic`](https://go.dev/ref/spec#Handling_panics) to raise the problem. With an artefact to describe the problem.
 Then register the artefact which you want to `Tackle` from the panic. Provide a handler function to handle it `With`.
 
 ### Example
 ```
+type CustomError struct {
+    CustomMessage string
+}
+func (e *CustomError) Error() string {
+    return e.CustomMessage
+}
+
 func ExampleTackle() {
-    var customError = &struct {
-		CustomMessage string
-		Error         func() string
-	}{
-		CustomMessage: "error: custom message",
-	}
-	customError.Error = func() string {
-		return customError.CustomMessage
-	}
-
+    var customError = &CustomError{
+        CustomMessage: "error: custom message",
+    }
     customErrA := errors.New("error: a")
-	customErrB := errors.New("error: b")
-
-
-	errHandleFunc := func(artefact any) {
-		fmt.Printf("It panicked. Error: %+v", artefact)
-	}
+    customErrB := errors.New("error: b")
+    
+    
+    errHandleFunc := func(artefact any) {
+        fmt.Printf("It panicked. Error: %+v", artefact)
+    }
     // Must be deferred in order to handle any panic at function return.
-	defer nice.Tackle(
+    defer nice.Tackle(
         customErrA,
         customErrB,
         // Custom error type should be registered as type.
         reflect.TypeFor[customError](),
     ).With(errHandleFunc)
-
-
+    
+    
     strHandleFunc := func(artefact any) {
-		fmt.Printf("It panicked. With message: %s", artefact)
-	}
+        fmt.Printf("It panicked. With message: %s", artefact)
+    }
     // Register multiple handlers to handle different causes.
     defer nice.Ticket(
         reflect.TypeFor[string](),
     ).With(strHandleFunc)
-
-
-
+    
+    
+    
     // Business logic...
-	func() {
-		panic(customErrB) // This will fail first.
-	}()
+    func() {
+        panic(customErrB) // This will fail first.
+    }()
 
     func() {
         panic(customErrA) // This will be skipped due to previous panic.
