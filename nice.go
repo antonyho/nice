@@ -51,6 +51,8 @@ func (h Handler) With(handle func(artefact any)) {
 // if you want to handle particular type of error.
 // Passsing `reflect.TypeFor[error]()` registers all types of error
 // to be handled by the handle function.
+// Not passing any parameter to targets will assume generic error
+// would be handled.
 func Tackle(targets ...any) Handler {
 	artefactTypes := make([]reflect.Type, 0)
 	errorTypes := make([]error, 0)
