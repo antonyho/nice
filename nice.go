@@ -55,6 +55,13 @@ func Tackle(targets ...any) Handler {
 	artefactTypes := make([]reflect.Type, 0)
 	errorTypes := make([]error, 0)
 
+	if len(targets) == 0 {
+		return Handler{
+			artefactTypes: []reflect.Type{reflect.TypeFor[error]()},
+			errorTypes:    errorTypes,
+		}
+	}
+
 	for _, t := range targets {
 		if errorType, matched := t.(error); matched {
 			errorTypes = append(errorTypes, errorType)

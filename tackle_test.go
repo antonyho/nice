@@ -9,7 +9,7 @@ import (
 )
 
 func TestTackle(t *testing.T) {
-	t.Run("Single artefact yype", func(t *testing.T) {
+	t.Run("Single artefact type", func(t *testing.T) {
 		h := Tackle(reflect.TypeFor[string]())
 		expected := Handler{
 			artefactTypes: []reflect.Type{reflect.TypeFor[string]()},
@@ -38,7 +38,7 @@ func TestTackle(t *testing.T) {
 		assert.Equal(t, expected, h)
 	})
 
-	t.Run("Multiple Artefact Types", func(t *testing.T) {
+	t.Run("Multiple artefact types", func(t *testing.T) {
 		customStringError := errors.New("error: custom")
 
 		h := Tackle(
@@ -57,6 +57,15 @@ func TestTackle(t *testing.T) {
 			errorTypes:    expectedErrorTypes,
 		}
 
+		assert.Equal(t, expected, h)
+	})
+
+	t.Run("No artefact type", func(t *testing.T) {
+		h := Tackle()
+		expected := Handler{
+			artefactTypes: []reflect.Type{reflect.TypeFor[error]()},
+			errorTypes:    []error{},
+		}
 		assert.Equal(t, expected, h)
 	})
 }
